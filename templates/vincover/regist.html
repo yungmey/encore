@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+</head>
+    <script type="text/javascript">
+        function checkName() {
+        var xhr;
+        if(window.ActiveXObject) {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP")
+        }else if(window.XMLHttpRequest){
+            xhr =new XMLHttpRequest()
+        }
+
+        var name =document.getElementById("username").value;
+        var url="{% url 'vincover:checkname' %}"+"?username="+name;
+        xhr.open("get",url,true);
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.responseText;
+                console.log("res:" + res);
+                document.getElementById("ma").innerHTML = res;
+                console.log(xhr.responseText)
+            }
+        }
+
+    }
+
+    function checkPwd() {
+        var xhr;
+        if(window.ActiveXObject){
+            xhr=new ActiveXObject('Microsoft.XMLHTTP')
+        }else if(window.XMLHttpRequest) {
+            xhr=new XMLHttpRequest()
+        }
+
+        var userpwd=document.getElementById('userpwd').value;
+        var url="{% url 'vincover:checkpwd' %}"+"?userpwd="+userpwd;
+        xhr.open('get',url,true);
+        xhr.send();
+
+        xhr.onreadystatechange =function () {
+            if(xhr.readyState ==4 && xhr.status ==200){
+                res=xhr.responseText;
+                console.log('res:'+ res);
+                document.getElementById('mb').innerHTML= res;
+                console.log(xhr.responseText)
+            }
+        }
+
+    }
+
+    function checkConfirmpwd() {
+        var xhr;
+        if(window.ActiveXObject){
+            xhr=new ActiveXObject('Mircosoft.XMLHTTP');
+        }else if(window.XMLHttpRequest){
+            xhr=new XMLHttpRequest();
+        }
+
+        var confirmpwd=document.getElementById('confirmpwd').value;
+        var url ="{% url 'vincover:checkconfirmpwd' %}"+"?confirmpwd"+confirmpwd;
+        xhr.open('get',url,true);
+        xhr.send();
+
+        xhr.onreadystatechange=function () {
+            if(xhr.readyState == 4 && xhr.status == 200){
+                res=xhr.responseText;
+                console.log('res:'+res)
+                document.getElementById('mc').innerHTML=res;
+                console.log(xhr.responseText)
+            }
+        }
+    }
+
+    </script>
+<body>
+    <form action="{% url 'vincover:registlogic' %}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>注册账号：</td>
+                <td><input type="text" name="username" id="username" onblur="checkName()"></td>
+                <td><p>请使用您正在使用的邮箱注册</p><span id="ma"></span></td>
+            </tr>
+
+            <tr>
+                <td>设置密码：</td>
+                <td><input type="password" id="userpwd" name="userpwd" onblur="checkPwd()"></td>
+                <td><p>请输入至少六位数密码</p><span id="mb"></span></td>
+            </tr>
+
+            <tr>
+                <td>确认密码：</td>
+                <td><input type="password" id="confirmpwd" name="confirmpwd" onblur="checkConfirmpwd()"></td>
+                <td><p>请输入确认密码</p><span id="mc"></span></td>
+            </tr>
+
+            <tr>
+                <td>验证码：</td>
+                <td><input type="text" name="int_captcha"></td>
+                <td><p>请输入图中出现的字符，不区分大小写</p><span id="md"></span></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="submit" value="注册提交"></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

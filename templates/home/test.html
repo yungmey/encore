@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车</title>
+	</head>
+	<body>
+		<div class="box">
+		<div class="bo2">
+			<p>来到购物车</p>
+		</div>
+
+		<div class='box1'>
+			<input  type="button", value='-' />
+			<input  type="text" ,name="we" id="uy" value="0" />
+			<input  type="button", value='+' />
+		</div>
+
+		</div>
+
+
+		<script type="text/javascript">
+			document.getElementsByTagName('input')[2].onclick = function(){
+				var text1 = document.getElementsByTagName('input')[1];
+				text1.value ++;
+			}
+			document.getElementsByTagName('input')[0].onclick = function(){
+				var text2 = document.getElementsByTagName('input')[1];
+				if (text2.value > 1){
+					text2.value --;
+				}
+			}
+		</script>
+	</body>
+</html>
